@@ -78,6 +78,7 @@ class MLWWPDeveloperToolkit
       include("php/wpdt_update.php");
       include("php/wpdt_cron.php");
       include("php/wpdt_refresh.php");
+      include("php/wpdt-plugin-dev-page.php");
 
       $this->cronManager = new WPDTCron();
     }
@@ -152,8 +153,8 @@ class MLWWPDeveloperToolkit
   	{
   		if (function_exists('add_menu_page'))
   		{
-        add_menu_page('WP Dev Toolkit', 'WP Dev Toolkit', 'moderate_comments', __FILE__, array('WPDTPluginPage','generate_page'), 'dashicons-flag');
-        add_submenu_page(__FILE__, __('Stats', 'wordpress-developer-toolkit'), __('Stats', 'wordpress-developer-toolkit'), 'moderate_comments', 'wpdt_stats', array('WPDTStatsPage','generate_page'));
+        add_menu_page('WP Dev Toolkit', 'WP Dev Toolkit', 'moderate_comments', 'wpdevtool', array('WPDTPluginPage','generate_page'), 'dashicons-flag');
+        add_submenu_page('wpdevtool', __('Stats', 'wordpress-developer-toolkit'), __('Stats', 'wordpress-developer-toolkit'), 'moderate_comments', 'wpdt_stats', array('WPDTStatsPage','generate_page'));
       }
       add_dashboard_page(
 				__( 'WPDT About', 'wordpress-developer-toolkit' ),
