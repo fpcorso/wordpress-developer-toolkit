@@ -72,10 +72,11 @@ class WPDT_Plugin_Dev_Page
      * @return void
      */
     public function generate_page() {
-      if ( !current_user_can('moderate_comments') )
-    	{
+      if ( !current_user_can('moderate_comments') ) {
     		return;
     	}
+      wp_enqueue_style( 'wpdt_admin_style', plugins_url( '../css/admin.css' , __FILE__ ) );
+      wp_enqueue_script( 'wpdt_admin_script', plugins_url( '../js/admin.js' , __FILE__ ) );
     	$active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'readme-validator';
     	$tab_array = $this->get_tabs();
     	?>
@@ -90,11 +91,11 @@ class WPDT_Plugin_Dev_Page
     				{
     					$active_class = 'nav-tab-active';
     				}
-    				echo "<a href=\"?page=wpdevtool&tab=".$tab['slug']."\" class=\"nav-tab $active_class\">".$tab['title']."</a>";
+    				echo "<a href=\"?page=wpdt_plugin_dev&tab=".$tab['slug']."\" class=\"nav-tab $active_class\">".$tab['title']."</a>";
     			}
     			?>
     		</h2>
-    		<div>
+    		<div class="wpdt-plugin-dev-tab">
     		<?php
     			foreach($tab_array as $tab)
     			{
@@ -125,12 +126,13 @@ class WPDT_Plugin_Dev_Page
     public function readme_validator_tab() {
       if ( isset( $_POST["readme"] ) ) {
         include "readme_validation/readme_validator.php";
-        echo wpdt_validate_readme( $_POST["readme"] );
+        echo wpdt_validate_readme( stripslashes($_POST["readme"]) );
       }
       ?>
+      <h3><?php _e( "Paste your readme.txt in the box below:", 'wordpress-developer-toolkit' ); ?></h3>
       <form action="" method="post">
-        <textarea name="readme"></textarea>
-        <button><?php _e( "Validate Readme", 'wordpress-developer-toolkit' ); ?></button>
+        <textarea name="readme" class="wpdt-readme"></textarea><br>
+        <button class="button-primary"><?php _e( "Validate Readme", 'wordpress-developer-toolkit' ); ?></button>
       </form>
       <?php
     }

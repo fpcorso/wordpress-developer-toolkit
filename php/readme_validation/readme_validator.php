@@ -50,28 +50,26 @@ function wpdt_validate_readme($readme_contents) {
   ob_start();
   // print those errors, warnings, and notes
 	if ( $fatal_errors ) {
-		echo "<div class='fatal error'><p>Fatal Error:</p>\n<ul class='fatal error'>\n";
+		echo "<div class='error'><p>Fatal Error:</p>\n<ul class='fatal error'>\n";
 		foreach ( $fatal_errors as $e )
 			echo "<li>$e</li>\n";
 		echo "</ul>\n</div>";
 		return; // no point staying
 	}
 	if ( $warnings ) {
-		echo "<div class='warning error'><p>Warnings:</p>\n<ul class='warning error'>\n";
+		echo "<div class='error'><p>Warnings:</p>\n<ul class='warning error'>\n";
 		foreach ( $warnings as $e )
 			echo "<li>$e</li>\n";
 		echo "</ul>\n</div>";
 	}
 	if ( $notes ) {
-		echo "<div class='note error'><p>Notes:</p>\n<ul class='note error'>\n";
+		echo "<div class='error'><p>Notes:</p>\n<ul class='note error'>\n";
 		foreach ( $notes as $e )
 			echo "<li>$e</li>\n";
 		echo "</ul>\n</div>";
 	}
 	if ( !$notes && !$warnings && !$fatal_errors )
-		echo "<div class='success'><p>Your <code>readme.txt</code> rocks.  Seriously.  Flying colors.</p></div>\n";
-	else
-		echo "<a href='#re-edit'>Re-Edit your Readme File</a>\n";
+		echo "<div class='updated'><p>There are no errors in your <code>readme.txt</code>. Great job!</p></div>\n";
 	// Show the data, as interpreted
 	?>
 	<hr />
